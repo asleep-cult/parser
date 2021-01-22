@@ -145,6 +145,6 @@ Lexer Lexer_ParseFile(char *file_path)
                 .tokens = NULL
         };
 	for (; !lexer->eof;) {
-		lexer_parse_once(lexer);
+		lexer_parse_once(&lexer);
 	}
 }
