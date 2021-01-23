@@ -1,0 +1,44 @@
+statically typed or dynamically typed?
+
+For the sake of simplicity I'd like this "language" to be dynamically typed...
+at first I was torn between whether it should be dynamically or statically
+typed but one of the things I hate most about statically typed languages
+is that data structures aren't capable of holding more that one datatype
+and that everything isn't nullable. Statically typed languages can be a pain
+at times D:. Although this "language" will be dynamically typed, there will
+still be static typing so `Integer foo = 1`, `Object foo = 1` and `foo = 1`
+will all be valid.
+
+compiled or interpreted?
+
+There will be multiple implementations but the end goal is for the
+"official" implementation to use a JIT compiler, an interpreted implementation
+will likely come first.
+
+basic syntax?
+
+The idea is named blocks of code that can be decorated with block decorators
+
+```
+function namedBlock(int x) void {
+        Integer foo = 9;
+}
+```
+
+here function is the block decorator
+
+```
+struct NamedBlock {
+        Integer foo;
+}
+```
+
+here struct is the block decorator
+
+```
+private class NamedBlock {
+}
+```
+
+here there a multiple block decorators... private and class.
+These aren't keywords... just built-in decorators :^)
