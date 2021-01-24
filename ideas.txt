@@ -1,19 +1,25 @@
 statically typed or dynamically typed?
 
-For the sake of simplicity I'd like this "language" to be dynamically typed...
-at first I was torn between whether it should be dynamically or statically
-typed but one of the things I hate most about statically typed languages
-is that data structures aren't capable of holding more that one datatype
-and that everything isn't nullable. Statically typed languages can be a pain
-at times D:. Although this "language" will be dynamically typed, there will
-still be static typing so `Integer foo = 1`, `Object foo = 1` and `foo = 1`
-will all be valid.
+I'd like this "language" to be statically typed but I'd like to provide
+an interface to dynamic types through an Object type. Objects will be
+compatible with all operators and are assumed to have all properties but
+this can only be proven at runtime.
 
 compiled or interpreted?
 
 There will be multiple implementations but the end goal is for the
 "official" implementation to use a JIT compiler, an interpreted implementation
 will likely come first.
+
+garbage collection?
+
+This "language" will use a mark-sweep-compact garbage collection algorithm,
+everything will be allocated on a heap and referenced by the stack. All objects
+on the heap will have a bit determining if it's unreachable, the runtime will
+search the stack for all objects on the heap and mark the unreachable bit
+if it wasn't found. The runtime will then sweep the heap of unreachable
+objects and compact the heap so that there aren't gaps where live objects
+once lived (live objects on top free space on the bottom).
 
 basic syntax?
 
