@@ -30,6 +30,11 @@ MemorySegment *RuntimeHeap_AllocateSegment(RuntimeHeap *heap, size_t size)
         return segment;
 }
 
+void *RuntimeHeap_Malloc(RuntimeHeap *heap, size_t size)
+{
+        return RuntimeHeap_AllocateSegment(heap, size)->data;
+}
+
 void RuntimeHeap_FreeSegment(RuntimeHeap *heap, int segment_idx)
 {
         memmove(

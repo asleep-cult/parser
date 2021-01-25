@@ -1,12 +1,33 @@
 #include "compile.h"
 #include "parser.h"
 #include "lexer.h"
+#include "memory.h"
+#include "integer.h"
 
-void visit_node(Node *node)
+#include <stdlib.h>
+
+/* TODO: Don't use extern */
+extern RuntimeState runtime_state;
+
+void emit(Compiler *compiler, int opcode)
+{
+        compiler->buffer_size++;
+        int *new_buffer = realloc(
+                compiler->buffer,
+                sizeof(int) * compiler->buffer_size
+        );
+        compiler->buffer = new_buffer;
+        compiler->buffer[compiler->buffer_size] = opcode;
+}
+
+void visit_node(Compiler *compiler, Node *node)
 {
         switch (node->type) {
         case NUMBER:
-                // add the literal to Compiler->literals
+                Integer *integer = Integer_FromString(node->number);
+                int location = runtime_state->heap->segment_size;
+                emit(compiler, LOAD_FROM_HEAP);
+                emit(compiler, location);
         case BINOP:
                 visit_node(node->binop_left);
                 visit_node(node->binop_right);
@@ -21,6 +42,6 @@ void visit_node(Node *node)
                 case FSLASH:
                         opcode = BINOP_DIVIDE;
                 }
-                write_to_buffer(opcode);
+                emit(compiler, opcode);
         }
 }

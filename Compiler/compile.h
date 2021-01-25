@@ -9,12 +9,10 @@ enum Opcode {
         BINARY_XOR,
         UNARY_POSITIVE,
         UNARY_NEGATIVE,
-        GET_LITERAL
-}
+        LOAD_FROM_HEAP
+};
 
 typedef struct Compiler {
         int *buffer;
         int buffer_size;
-        // void *literals;
-        int literal_size;
 };
