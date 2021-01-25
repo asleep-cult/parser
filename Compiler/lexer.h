@@ -11,6 +11,7 @@ typedef struct Lexer {
         int lineno;
         int eof;
         int token_size;
+        char tail;
         Token *current_token;
         FILE *fp;
         Token *tokens;
