@@ -10,16 +10,17 @@ how do types work?
 Types contain information needed to get object properties, when a new struct
 instance is created the compiler creates an array of struct member names.
 The compiler can then write an instruction that tells the runtime to get the
-object from the heap at the index of the name in the array + the index of
-the struct instance itself in the heap. The Any type is different, instead of
-telling to runtime to get a specific object on the heap, it must
-store its actual type and maintain a hash-map of struct members to the memory
-locations of objects. It will then tell the runtime to perform a hash-map
-lookup for the name, if this lookup is unsuccessful the runtime will throw
-an error. When the Any type is used only the runtime is capable of
+object from the instances property array at the same index. The Any type is
+different, instead of telling to runtime to get a specific object on the heap,
+it must store its actual type and maintain a hash-map of struct members to
+the memory locations of objects. It will then tell the runtime to perform a
+hash-map lookup for the name, if this lookup is unsuccessful the runtime will
+throw an error. When the Any type is used only the runtime is capable of
 determining if the property exists, when a real type is used the runtime
 knows the type exists and doesn't have to deal with the overhead of a
 hash-map lookup.
+
+this needs to be refined...
 
 compiled or interpreted?
 
