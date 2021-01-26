@@ -1,5 +1,9 @@
+#include "object.h"
+
 typedef struct Integer {
+        Object;
         long *buffer;
+        int buffer_length;
 } Integer;
 
 Integer *Integer_FromString(char *string, int string_size);

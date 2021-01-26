@@ -6,19 +6,20 @@
 /* TODO: Don't use extern */
 extern RuntimeState runtime_state;
 
-Integer *Integer_FromLong(long value)
+Object *Integer_FromLong(long value)
 {
         Integer *integer = RuntimeHeap_Malloc(
                 runtime_state->heap,
                 sizeof(Integer)
         );
         Integer *integer = segment->data;
+        integer->buffer_length = 0;
         integer->buffer = malloc(sizeof(long));
         integer->buffer[0] = value;
-        return integer;
+        return (Object *)integer;
 }
 
-Integer *Integer_FromString(char *string, int string_size)
+Object *Integer_FromString(char *string, int string_size)
 {
         /* TODO: Check for overflow and realloc */
         Integer *integer = Integer_FromLong(0);
@@ -28,4 +29,5 @@ Integer *Integer_FromString(char *string, int string_size)
                 *curr_long += digit;
                 *curr_long *= 10;
         }
+        return (Object *)integer;
 }

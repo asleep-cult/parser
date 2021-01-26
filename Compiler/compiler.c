@@ -26,8 +26,8 @@ void visit_node(Compiler *compiler, Node *node)
         case NUMBER:
                 Integer *integer = Integer_FromString(node->number);
                 int location = runtime_state->heap->segment_size;
-                emit(compiler, LOAD_FROM_HEAP);
-                emit(compiler, location);
+                //emit(compiler, LOAD_FROM_HEAP);
+                //emit(compiler, location);
         case BINOP:
                 visit_node(node->binop_left);
                 visit_node(node->binop_right);
@@ -42,6 +42,6 @@ void visit_node(Compiler *compiler, Node *node)
                 case FSLASH:
                         opcode = BINOP_DIVIDE;
                 }
-                emit(compiler, opcode);
+                //emit(compiler, opcode);
         }
 }

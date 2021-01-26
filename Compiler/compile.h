@@ -1,3 +1,6 @@
+#include "integer.h"
+#include "string.h"
+
 enum Opcode {
         BINARY_ADD,
         BINARY_SUBTRACT,
@@ -8,8 +11,7 @@ enum Opcode {
         BINARY_OR,
         BINARY_XOR,
         UNARY_POSITIVE,
-        UNARY_NEGATIVE,
-        LOAD_FROM_HEAP
+        UNARY_NEGATIVE
 };
 
 typedef struct Compiler {

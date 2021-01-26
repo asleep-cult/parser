@@ -5,6 +5,8 @@ an interface to dynamic types through an Any type. Any will be
 compatible with all operators and are assumed to have all properties but
 this can only be proven at runtime.
 
+I DON'T KNOW HOW THIS WILL WORK 
+
 how do types work?
 
 Types contain information needed to get object properties, when a new struct
@@ -21,6 +23,8 @@ knows the type exists and doesn't have to deal with the overhead of a
 hash-map lookup.
 
 this needs to be refined...
+
+I DON'T KNOW HOW THIS WILL WORK
 
 compiled or interpreted?
 
