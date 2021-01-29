@@ -1,15 +1,11 @@
 #include "compile.h"
 #include "parser.h"
 #include "lexer.h"
-#include "memory.h"
-#include "integer.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
-/* TODO: Don't use extern */
-extern RuntimeState runtime_state;
-
-void emit(Compiler *compiler, int opcode)
+void emit(Compiler *compiler, int arg)
 {
         compiler->buffer_size++;
         int *new_buffer = realloc(
@@ -17,20 +13,39 @@ void emit(Compiler *compiler, int opcode)
                 sizeof(int) * compiler->buffer_size
         );
         compiler->buffer = new_buffer;
-        compiler->buffer[compiler->buffer_size] = opcode;
+        compiler->buffer[compiler->buffer_size - 1] = arg;
+}
+
+void emit_literal(Compiler *compiler, int opcode, char *literal)
+{
+        emit(compiler, opcode);
+        compiler->literals_size++;
+        char *literals = realloc(
+                compiler->literals,
+                sizeof(char *) * compiler->literals_size
+        );
+        compiler->literals = literals;
+        compiler->literals[compiler->literals_size - 1] = literal;
+        emit(compiler->literals_size);
 }
 
 void visit_node(Compiler *compiler, Node *node)
 {
         switch (node->type) {
         case NUMBER:
-                Integer *integer = Integer_FromString(node->number);
-                int location = runtime_state->heap->segment_size;
-                //emit(compiler, LOAD_FROM_HEAP);
-                //emit(compiler, location);
+                emit_literal(compiler, GET_NUMBER, node->number);
+        case UNARYOP:
+                int opcode;
+                switch(node->unary_operator)
+                {
+                case PLUS:
+                        opcode = UNARY_POSITIVE;
+                case MINUS:
+                        opcode = UNARY_NEGATIVE;
+                }
+                emit(compiler, opcode);
+                visit_node(compiler, node->unary_operand);
         case BINOP:
-                visit_node(node->binop_left);
-                visit_node(node->binop_right);
                 int opcode;
                 switch (node->binop_operator) {
                 case PLUS:
@@ -42,6 +57,20 @@ void visit_node(Compiler *compiler, Node *node)
                 case FSLASH:
                         opcode = BINOP_DIVIDE;
                 }
-                //emit(compiler, opcode);
+                emit(compiler, opcode);
+                visit_node(node->binop_left);
+                visit_node(node->binop_right);
         }
+}
+
+Compiler Compile_Node(Node *node)
+{
+        Compiler compiler = {
+                .buffer = NULL,
+                .buffer_size = 0,
+                .literals = NULL,
+                .literals_size = 0
+        };
+        visit_node(&compiler, node);
+        return compiler;
 }

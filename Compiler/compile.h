@@ -11,10 +11,14 @@ enum Opcode {
         BINARY_OR,
         BINARY_XOR,
         UNARY_POSITIVE,
-        UNARY_NEGATIVE
+        UNARY_NEGATIVE,
+        GET_NUMBER,
+        GET_STRING
 };
 
 typedef struct Compiler {
         int *buffer;
         int buffer_size;
+        char *literals;
+        int literals_size;
 };

@@ -1,0 +1,6 @@
+x86_64 Registers
+rbp - Points to the base of the current stack frame (used for the offset of local variables?)
+rsp - Points to the top of the stack
+push - Pushes a value onto the top of the stack
+pop - Pops the top of the stack and moves it into the specified register
+mov - Moves the second value to the first value (register)
