@@ -1,0 +1,53 @@
+Compiled of Interpreted:
+
+This implementation will use a JIT compiler. The "runtime" will use frames
+to keep track things needed for compilation to machine code such as
+local variables, bytecode, etc. The program can access things such as the
+current frame through functions prefixed with '@', these functions won't
+be called directly from machine code, instead the runtime will decide what to
+do based on the instruction (similar to interpreted langs).
+
+Source -> Tokens -> Syntax Tree -> Bytecode -> Runtime -> [Machine Code]?
+
+Basic Syntax:
+
+Similar to Python, this language will use indentation to keep track of blocks,
+the blocks will then be "decorated". All blocks must be decorated by something
+but all block decorators don't need to decorate blocks. Named blocks can
+be overloaded in their scope.
+
+Examples:
+
+function namedBlock() void;
+
+The example above is valid, a block decorator can be used on a block that
+is immediately terminated which will do nothing when called.
+
+function namedBlock() void:
+        try:
+                doSomething();
+        catch;
+
+The example above is not immediately terminated.
+
+function namedBlock() void;
+async function namedBlock() void;
+
+The example above is overloaded.
+
+Runtime Requests:
+
+Like mentioned in the Compiled of Interpreted section, runtime requests will
+be prefixed with '@'.
+
+Exampled:
+
+```
+runtime: Module = @import('runtime');
+
+function hello() void:
+        frame: runtime.Frame = @frame();
+        print(frame.code);
+
+hello();
+```
