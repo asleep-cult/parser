@@ -1,19 +1,18 @@
+#include "map.h"
+
 typedef struct Type Type;
 
 typedef struct LiteralType {
-        char *name;
         size_t size;
 } LiteralType;
 
 typedef struct StructType {
-        char *name;
-        char **property_names;
-        Type **properties;
-        int properties_size;
+        Map properties;
 } StructType;
 
 typedef struct Type {
         int literal;
+        char *name;
         union {
                 LiteralType;
                 StructType;
@@ -21,4 +20,4 @@ typedef struct Type {
 } Type;
 
 size_t Type_GetSize(Type *type);
-int Type_GetPropertyOffset(Type *type, char *name);
+size_t Type_GetPropertyOffset(Type *type, char *name);

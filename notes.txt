@@ -1,4 +1,5 @@
 x86_64 Registers
+https://gist.github.com/mikesmullin/6259449 This is very useful :)
 rbp - Points to the base of the current stack frame (used for the offset of local variables?)
 rsp - Points to the top of the stack
 push - Pushes a value onto the top of the stack
