@@ -1,4 +1,16 @@
-Windows calling convention:
+ __________________________________________________________________________________________________________________________
+|  Register  |	Accumulator  |  Counter |  Data  | Base  | Stack Pointer |  Stack Base Pointer  |  Source  |  Destination  |
+|____________|_______________|__________|________|_______|_______________|______________________|__________|_______________|
+|  64-bit    |	    RAX	     |   RCX	|  RDX   |  RBX  |     RSP       | 	   RBP	        |    RSI   |      RDI      |
+|____________|_______________|__________|________|_______|_______________|______________________|__________|_______________|
+|  32-bit    |      EAX      |   ECX    |  EDX   |  EBX  |     ESP       |         EBP          |    ESI   |      EDI      |
+|____________|_______________|__________|________|_______|_______________|______________________|__________|_______________|
+|  16-bit    |      AX       |   CX     |  DX    |  BX   |     SP        |         BP           |    SI    |      DI       |
+|____________|_______________|__________|________|_______|_______________|______________________|__________|_______________|
+|  8-bit     |	 AH	AL   |  CH  CL  | DH  DL | BH BL |     SPL	 |	   BPL		|    SIL   |	  DIL      |
+|____________|_______________|__________|________|_______|_______________|______________________|__________|_______________|
+
+X64 Windows calling convention:
 
 rdi, /* Used to store the first argument in function call */
 rsi, /* Used to store the second argument in function call */
@@ -20,7 +32,7 @@ xmmo0, /* Used to store the first floating point argument in function
 call, used for floating point return values as well */
 xmmo1, /* Used to store the second floating point argument in function
 call */
-xmmo1, /* Used to store the thrid floating point argument in function
+xmmo1, /* Used to store the third floating point argument in function
 call */
 
 /* Additional arguments are pushed onto stack */
