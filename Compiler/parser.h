@@ -37,7 +37,6 @@ typedef struct Node
 
 typedef struct Parser {
         int position;
-        int node_size;
         Token *tokens;
 } Parser;
 
@@ -48,3 +47,5 @@ enum NodeType {
 	NAMENODE,
 	ASSIGNMENT
 };
+
+Parser Parser_ParseTokens(Token *tokens);

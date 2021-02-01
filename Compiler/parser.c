@@ -110,3 +110,13 @@ Node *parse_expr(Parser *parser)
         }
         return left;
 }
+
+Node *Parser_ParseTokens(Token *tokens)
+{
+        Parser parser = {
+                .tokens = tokens,
+                .position = 0
+        };
+        Node *node = parse_expr(&parser);
+        return node;
+}

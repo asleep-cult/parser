@@ -1,4 +1,4 @@
-#include "compile.h"
+#include "compiler.h"
 #include "parser.h"
 #include "lexer.h"
 
@@ -63,9 +63,9 @@ void visit_node(Code *code, Node *node)
         }
 }
 
-Compiler Compile_Node(Node *node)
+Code Compile_AST(Node *node)
 {
-        Block module;
-        visit_node(&module, node);
-        return compiler;
+        Code code;
+        visit_node(&code, node);
+        return code;
 }

@@ -18,7 +18,7 @@ Type *Type_FromGeneric(Type *generic_type, char *name, Type *type_arg)
 {
         Type *new_type = malloc(sizeof(Type));
         *new_type = *generic_type;
-        Map_SetItem(new_type->properties, name, type_arg);
+        // Map_SetItem(new_type->properties, name, type_arg);
         return new_type;
 }
 
