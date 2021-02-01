@@ -57,7 +57,7 @@ Code Compile_AST(Node *node)
                 .types = Map_New(),
                 .locals = Map_New(),
                 .literals = Vector_New(),
-                .buffer = Vector_New()
+                .buffer = Array_New()
         };
         visit_node(&code, node);
         return code;
