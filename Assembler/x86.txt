@@ -10,6 +10,13 @@
 |  8-bit     |	 AH	AL   |  CH  CL  | DH  DL | BH BL |     SPL	 |	   BPL		|    SIL   |	  DIL      |
 |____________|_______________|__________|________|_______|_______________|______________________|__________|_______________|
 
+/* Accumulator registers are used for arithmetic operations */
+/* Counter registers are used for shift/rotate instructions and loops */
+/* Data registers are used for arithmetic operations and I/O operations. */
+/* Base registers are used as a pointer to data */
+/* Source registers are used as a pointer to a source in stream operations */
+/* Destination registers are used as a pointer to a destination in stream operations */
+
 X64 Windows calling convention:
 
 rdi, /* Used to store the first argument in function call */
@@ -19,28 +26,19 @@ rsi, /* Used to store the second argument in function call */
 /* RBX, RBP, RDI, RSI, R12, R14, R14, and R15 must be saved */
 
 /* Must be allocated by the caller */
-rdx, /* Used to store the third integer or pointer argument in
-function call */
-rcx,  /* Used to store the forth integer or pointer argument in
-function call */
-r8,  /* Used to store the fifth integer or pointer argument in
-function call */
-r9, /* Used to store the sixth integer or pointer argument in
-function call*/
+rdx, /* Used to store the third integer or pointer argument in function call */
+rcx,  /* Used to store the forth integer or pointer argument in function call */
+r8,  /* Used to store the fifth integer or pointer argument in function call */
+r9, /* Used to store the sixth integer or pointer argument in function call*/
 
-xmmo0, /* Used to store the first floating point argument in function
-call, used for floating point return values as well */
-xmmo1, /* Used to store the second floating point argument in function
-call */
-xmmo1, /* Used to store the third floating point argument in function
-call */
+xmmo0, /* Used to store the first floating point argument in function call, used for floating point return values as well */
+xmmo1, /* Used to store the second floating point argument in function call */
+xmmo1, /* Used to store the third floating point argument in function call */
 
 /* Additional arguments are pushed onto stack */
 
-rax, /* Used for function return values if the value is 64 bits or
-less - otherwise space is allocated on the stack by the caller
-and a pointer to the allocated memory is in rcx and moved to rax?, this
-means integer parameters will be offset by one */
+rax, /* Used for function return values if the value is 64 bits or less - otherwise space is allocated on the stack by the caller
+and a pointer to the allocated memory is in rcx and moved to rax?, this means integer parameters will be offset by one */
 
 rbx, /* Anything but must save? */
 rbp, /* Points to the base of the current stack frame so changes can be
