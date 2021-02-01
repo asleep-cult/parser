@@ -29,6 +29,7 @@ size_t Type_GetSize(Type *type)
         }
         size_t size = 0;
         for (int i = 0; i < type->properties.length; i++) {
+
                 map_item item = type->properties.items[i];
                 size += Type_GetSize(item->value);
         }
@@ -38,12 +39,15 @@ size_t Type_GetSize(Type *type)
 size_t Type_GetPropertyOffset(Type *type, char *name)
 {
         size_t offset = 0;
+
         for (int i = 0; i < type->properties.length; i++) {
                 map_item item = type->properties.items[i];
                 offset += Type_GetSize(item->value);
+
                 if (strncmp(item->key, name, item->key_length) == 0) {
                         break;
                 }
         }
+
         return offset;
 }

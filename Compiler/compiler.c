@@ -7,26 +7,14 @@
 
 void emit(Code *code, int arg)
 {
-        code->buffer_size++;
-        int *new_buffer = realloc(
-                code->buffer,
-                sizeof(int) * code->buffer_size
-        );
-        code->buffer = new_buffer;
-        code->buffer[code->buffer_size - 1] = arg;
+        Vector_Push(&code->buffer, arg);
 }
 
 void emit_literal(Code *code, int opcode, char *literal)
 {
         emit(compiler, opcode);
-        code->literals_size++;
-        char *literals = realloc(
-                code->literals,
-                sizeof(char *) * code->literals_size
-        );
-        code->literals = literals;
-        code->literals[code->literals_size - 1] = literal;
-        emit(code->literals_size);
+        Vector_Push(&code->literals, literal);
+        emit(code->literals.length);
 }
 
 void visit_node(Code *code, Node *node)

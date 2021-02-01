@@ -1,4 +1,5 @@
 #include "map.h"
+#include "vector.h"
 
 enum Opcode {
         BINARY_ADD,
@@ -18,9 +19,9 @@ enum Opcode {
 typedef struct Code {
         Map types; /* Map<char *, Type *>: The types defined */
         Map locals; /* Map<char *, Type *>: The local names and their types */
-        char *literals; /* The strings and integers used in the code */
+        Vector literals; /* Vector<char *> The strings and integers used in the code */
         int literals_size;
-        int *buffer;
+        Vector buffer;
         int buffer_size;
-        struct code *inner_code;
+        struct Code *inner_code;
 } Code;

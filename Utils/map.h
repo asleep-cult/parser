@@ -1,3 +1,5 @@
+#include "vector.h"
+
 typedef struct map_item {
         char *key;
         int key_length;
@@ -5,7 +7,7 @@ typedef struct map_item {
 };
 
 typedef struct Map {
-        map_item *items;
+        Vector items;
         int length;
 } Map;
 

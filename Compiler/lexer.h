@@ -1,20 +1,19 @@
+#include "vector.h"
+
 #include <stdio.h>
 
 typedef struct Token {
         int type;
-        int value_size;
-        char *value;
+        Vector value;
 } Token;
 
 typedef struct Lexer {
         int position;
         int lineno;
         int eof;
-        int token_size;
         char tail;
-        Token *current_token;
         FILE *fp;
-        Token *tokens;
+        Vector tokens;
 } Lexer;
 
 Lexer Lexer_ParseFile(char *file_path);
@@ -41,7 +40,7 @@ enum TokenType {
 	LBRACE,
 	RBRACE,
 	LBRACKET,
-	RBRACKER,
+	RBRACKET,
 	AT,
 	SEMICOLON,
 	COLON,
