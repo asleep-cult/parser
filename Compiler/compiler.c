@@ -7,14 +7,14 @@
 
 void emit(Code *code, int arg)
 {
-        Vector_Push(&code->buffer, arg);
+        Array_PushBack(code->buffer, arg);
 }
 
 void emit_literal(Code *code, int opcode, char *literal)
 {
         emit(compiler, opcode);
-        Vector_Push(&code->literals, literal);
-        emit(code->literals.length);
+        Vector_Push(code->literals, literal);
+        emit(code->literals->length - 1);
 }
 
 void visit_node(Code *code, Node *node)
@@ -53,7 +53,12 @@ void visit_node(Code *code, Node *node)
 
 Code Compile_AST(Node *node)
 {
-        Code code;
+        Code code = {
+                .types = Map_New(),
+                .locals = Map_New(),
+                .literals = Vector_New(),
+                .buffer = Vector_New()
+        };
         visit_node(&code, node);
         return code;
 }

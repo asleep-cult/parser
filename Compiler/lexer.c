@@ -60,14 +60,14 @@ char lexer_getc(Lexer *lexer)
 	        }
 	}
 
-        Vector_Push(&lexer->current_token->value, c);
+        Array_PushBack(lexer->current_token->value, c);
         return c;
 }
 
 void lexer_push_back(Lexer *lexer)
 {
-	Token *current_token = Vector_Get(&lexer->tokens, -1);
-	Vector_Pop(current_token->value, -1);
+	Token *current_token = Vector_Get(lexer->tokens, -1);
+	Array_PopBack(current_token->value);
 	lexer->eof = 0;
 	lexer->position--;
 }
@@ -75,14 +75,15 @@ void lexer_push_back(Lexer *lexer)
 void lexer_parse_once(Lexer *lexer)
 {
         Token *token = malloc(sizeof(Token));
+	token->value = Array_New(); 
         char c = lexer_getc(lexer);
         int token_type = get_token(c);
 
         if (token_type != INVALID) {
-                new_token->type = token_type;
+                token->type = token_type;
         }
         else if (CHECK_DIGIT(c)) {
-                new_token->type = INTEGER;
+                token->type = INTEGER;
 		do {
 			c = lexer_getc(lexer);
 		} while(CHECK_DIGIT(c));
@@ -100,8 +101,9 @@ Lexer Lexer_ParseFile(char *file_path)
                 .eof = 0,
 		.tail = '\0',
                 .fp = fp,
-                .tokens = NULL
+                .tokens = Vector_New()
         };
+
 	for (; !lexer->eof;) {
 		lexer_parse_once(&lexer);
 	}

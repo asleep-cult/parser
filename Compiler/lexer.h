@@ -1,10 +1,11 @@
 #include "vector.h"
+#include "array.h"
 
 #include <stdio.h>
 
 typedef struct Token {
         int type;
-        Vector value;
+        Array *value;
 } Token;
 
 typedef struct Lexer {
@@ -13,7 +14,7 @@ typedef struct Lexer {
         int eof;
         char tail;
         FILE *fp;
-        Vector tokens;
+        Vector *tokens;
 } Lexer;
 
 Lexer Lexer_ParseFile(char *file_path);
