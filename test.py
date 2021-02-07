@@ -1,6 +1,7 @@
 import tokenizer
 import tparser
 import compiler
+import transpiler
 
 
 def dis(c):
@@ -32,7 +33,9 @@ with open('test.xx') as fp:
     tokens = tokenizer.parse()
     parser = tparser.Parser(tokens)
     node = parser.parse_expr()
-    c = compiler.Compiler()
+    c = compiler.Code()
     c.visit(node)
     print(c.buffer)
     dis(c)
+    t = transpiler.Transpiler(c)
+    t.transpile()

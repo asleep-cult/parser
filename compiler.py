@@ -13,7 +13,7 @@ class Opcode:
     GET_INTEGER = 7
 
 
-class Compiler:
+class Code:
     def __init__(self):
         self.buffer = bytearray()
         self.literals = []
@@ -23,6 +23,7 @@ class Compiler:
             return self.literals.index(value)
         except ValueError:
             pass
+
         self.literals.append(value)
         return len(self.literals) - 1
 
@@ -36,6 +37,7 @@ class Compiler:
 
     def visit_unary_op(self, node):
         self.visit(node.operand)
+
         operator = node.operator
         if operator == TokenType.PLUS:
             self.buffer.append(Opcode.POSITIVE)
@@ -45,6 +47,7 @@ class Compiler:
     def visit_binary_op(self, node):
         self.visit(node.left)
         self.visit(node.right)
+
         operator = node.operator
         if operator == TokenType.PLUS:
             self.buffer.append(Opcode.ADD)
