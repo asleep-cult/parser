@@ -12,7 +12,8 @@ Token *parser_neextt(Parser *parser)
 
 Node *parse_factor(Parser *parser)
 {
-        Node *node = malloc(sizeof(Node));
+        Node *root = malloc(sizeof(Node));
+        Node *node = root;
         while (1) {
                 Token *tok = parser_nextt(parser);
                 if (
@@ -38,7 +39,7 @@ Node *parse_factor(Parser *parser)
 				.unary_operator = PLUS,
 				.unary_operand = number
 			};
-			return node;
+			return root;
 		}
         }
         return NULL;

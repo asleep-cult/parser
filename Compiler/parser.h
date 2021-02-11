@@ -29,9 +29,7 @@ typedef struct Parser {
 enum NodeType {
 	NUMBER,
 	UNARYOP,
-	BINOP,
-	NAMENODE,
-	ASSIGNMENT
+	BINOP
 };
 
 Parser Parser_ParseTokens(Token *tokens);

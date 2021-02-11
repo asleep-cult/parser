@@ -39,7 +39,7 @@ int Array_PopBack(Array *array)
         return 1;
 }
 
-int Array_Get(Array *array, int index)
+char Array_Get(Array *array, int index)
 {
         if (index < 0) {
                 index = array->length + index;
