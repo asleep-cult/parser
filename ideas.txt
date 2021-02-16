@@ -1,59 +1,42 @@
-Compiled of Interpreted:
+A compiled language that includes the benefits of interpreted languages.
+The compilation process is as follows Source -> Tokens -> AST -> Bytecode ->
+Machine Code.
 
-This implementation will use a JIT compiler. The "runtime" will use frames
-to keep track things needed for compilation to assembly such as
-local variables, bytecode, etc. The program can access things such as the
-current frame through functions prefixed with '@', these functions won't
-be called directly from machine code, instead the runtime will decide what to
-do based on the instruction (similar to interpreted langs).
-
-Source -> Tokens -> Syntax Tree -> Bytecode -> Runtime -> [Assembly -> Machine Code]?
-
-Basic Syntax:
-
-Similar to Python, this language will use indentation to keep track of blocks,
-the blocks will then be "decorated". All blocks must be decorated by something
-but all block decorators don't need to decorate blocks. Named blocks can
-be overloaded in their scope.
-
-Examples:
+Braces are used to define blocks, named blocks can be overloaded
+in their scope. Example:
 
 ```
-function namedBlock() void;
-```
-
-The example above is valid, a block decorator can be used on a block that
-is immediately terminated which will do nothing when called.
-
-```
-function namedBlock() void:
-        try:
-                doSomething();
+function namedBlock() {
+        try {
+                doSomething()
+        }
         catch;
+}
 ```
+The example above is equivalent to `catch {}`, the block is optional.
 
-The example above is not immediately terminated.
+Qualifiers are used to change the meaning of something, some built-in block
+qualifiers are function, class, interface, compconst and overridden. Some
+built-in type qualifiers are immutable, ...? .
 
-```
-function namedBlock() void;
-async function namedBlock() void;
-```
-
-The example above is overloaded.
-
-Runtime Requests:
-
-Like mentioned in the Compiled of Interpreted section, runtime requests will
-be prefixed with '@'.
-
-Exampled:
+Block guards essentially guard a block from being fully created until the
+block is initiated, this is useful for generics. Example:
 
 ```
-runtime: Module = @import('runtime');
+class GuardedBlock<T: Type>
+{
 
-function hello() void:
-        frame: runtime.Frame = @frame();
-        print(frame.code);
+}
 
-hello();
+T = GuardedBlock<Int>
 ```
+
+The `@` symbol is a request directly to the compiler, Example: `@import("foo")`
+
+Ideologies:
+Readability matters but so does performance.
+Special cases turn developers into second-class citizens.
+Meaning that overloadability is important but no code should behave unexpectedly.
+Undefined behavior is never good, instead an exception should be raised.
+High level interfaces should be provided but low level interfaces should never be restricted.
+Reinventing the wheel is okay, innovation needs to happen some day.
