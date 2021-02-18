@@ -34,8 +34,8 @@ T = GuardedBlock<Int>
 The `@` symbol is a request directly to the compiler, Example: `@import("foo")`
 
 Ideologies:
-Readability matters but not enough to deteriorate performance.
-Built-ins should never be treated as special cases meaning overloadability is important but unexpected behavior is deception.
-Undefined behavior can be a nuisance, exceptions exist for a reason.
+Readability matters but not enough to impact performance.
+Built-ins should never be treated as special cases meaning overloadability is important but unexpected behavior is bad.
+Undefined behavior can be hard to debug, exceptions exist for a reason.
 High level interfaces should always be provided but restriction of low level interfaces is unacceptable.
 The standard is preferred until it's not so reinventing the wheel is okay.
